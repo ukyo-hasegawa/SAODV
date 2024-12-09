@@ -1,7 +1,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include "data_struct.h"
+#include "../data_struct.h"
 #include <random>
 
 int main() {
