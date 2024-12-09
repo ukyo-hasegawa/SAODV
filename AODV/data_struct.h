@@ -15,13 +15,15 @@ struct RREQ {
 };
 //RREPの雛形
 struct RREP {
-    uint8_t type = 2; // RREPタイプ
-    uint8_t flags = 0;
-    uint8_t hop_count = 0;
-    uint32_t dest_ip;
-    uint32_t dest_seq_num;
-    uint32_t origin_ip;
-    uint32_t lifetime;
+    uint8_t type; // RREPタイプ
+    uint8_t flags; //RかAというフラグが設定される
+    uint8_t reserved; //受信時には無視される
+    uint8_t Prefix_Size; //非ゼロの場合,宛先と同じルーティングプレフィックスを持つ全ノードに対して、指示されたネクストホップを使用して良いことを指定
+    uint8_t hop_count; //送信元から宛先へのホップ数
+    uint32_t dest_ip; //宛先のIPアドレス
+    uint32_t dest_seq_num; //経路に関連づけられたシーケンス番号
+    uint32_t origin_ip; //送信元のIPアドレス
+    uint32_t lifetime; //RREPを受信したノードがルートを有効とみなす時間
 };
 //RERRの雛形
 struct RERR {
@@ -44,8 +46,11 @@ RREQ generateRREQ(uint8_t flags,uint8_t hop_count, uint32_t origin_ip, uint32_t 
     return rreq;
 }
 //RREPの生成
-RREP generateRREP(uint32_t origin_ip, uint32_t dest_ip, uint32_t dest_seq_num, uint8_t hop_count, uint64_t lifetime) {
+RREP generateRREP(uint8_t type,uint8_t reserved, uint8_t Prefix_size, uint32_t origin_ip, uint32_t dest_ip, uint32_t dest_seq_num, uint8_t hop_count, uint64_t lifetime) {
     RREP rrep;
+    rrep.type = 2;
+    rrep.reserved =reserved;
+    rrep.Prefix_Size = Prefix_size;
     rrep.origin_ip = origin_ip;
     rrep.dest_ip = dest_ip;
     rrep.dest_seq_num = dest_seq_num;
