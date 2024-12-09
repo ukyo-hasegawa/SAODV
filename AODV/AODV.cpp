@@ -1,6 +1,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include "data_struct.h"
+#include <random>
 
 struct RoutingTableEntry {
     std::string destination;
@@ -13,25 +15,24 @@ struct RoutingTableEntry {
         : destination(dest), nextHop(next), sequenceNumber(seq), hopCount(hop), active(true) {}
 };
 
-struct RREQ {
-    std::string src;
-    std::string dest;
-    uint32_t seqNo;
-    uint8_t hopCount;
+RREQ createRREQ(uint32_t dest_ip, uint32_t origin_ip, uint32_t origin_seq_num) {
+    RREQ rreq;
+    rreq.type = 1; // RREQ type
+    rreq.flags = 0; // Flags
+    rreq.hop_count = 0;
+    rreq.rreq_id = generateRREQID(); // Implement a function to generate unique RREQ IDs
+    rreq.dest_ip = dest_ip;
+    rreq.dest_seq_num = 0; // If no known sequence, set as 0
+    rreq.origin_ip = origin_ip;
+    rreq.origin_seq_num = origin_seq_num;
+    return rreq;
+}
 
-    RREQ(std::string s, std::string d, uint32_t seq)
-        : src(s), dest(d), seqNo(seq), hopCount(0) {}
-};
-
-struct RREP {
-    std::string src;
-    std::string dest;
-    uint32_t seqNo;
-    uint8_t hopCount;
-
-    RREP(std::string s, std::string d, uint32_t seq, uint8_t hop)
-        : src(s), dest(d), seqNo(seq), hopCount(hop) {}
-};
+uint32_t generateRREQID() {
+    static std::mt19937 generator(std::random_device{}());
+    static std::uniform_int_distribution<uint32_t> distribution(0, UINT32_MAX);
+    return distribution(generator);
+}
 
 void handleRREQ(RREQ& rreq, std::unordered_map<std::string, RoutingTableEntry>& routingTable) {
     if (routingTable.find(rreq.dest) != routingTable.end()) {
@@ -39,7 +40,7 @@ void handleRREQ(RREQ& rreq, std::unordered_map<std::string, RoutingTableEntry>& 
         std::cout << "Route found: Sending RREP for " << rreq.dest << "\n";
     } else {
         // RREQを転送
-        rreq.hopCount++;
+        rreq.hop_count++;
         std::cout << "Broadcasting RREQ for " << rreq.dest << "\n";
     }
 }
