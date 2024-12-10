@@ -13,7 +13,7 @@ from mn_wifi.wmediumdConnector import error_prob
 from mn_wifi.node import CPULimitedStation
 
 class TopologyGenerator:
-  def __init__(self,width=3,height=3):
+  def __init__(self,width=2,height=1):
     self.x=width;
     self.y=height;
     self.prot="";
@@ -26,15 +26,15 @@ class TopologyGenerator:
         self.x=int(param.split(":")[1]);
       if param.startswith("-h"):
         self.y=int(param.split(":")[1]);
-      #if param.startswith("-p"):
-        #self.prot=param.split(":")[1];
+      """if param.startswith("-p"):
+          self.prot=param.split(":")[1];
       if param.startswith("-m"):
         self.mode=param.split(":")[1];
       if param.startswith("-er"):
         self.error_rate=param.split(":")[1];
       if param.startswith("-cpu"):
         self.cpu_rate=param.split(":")[1];
-        self.cpu_rate_flag=True;
+        self.cpu_rate_flag=True;"""
         
 
     #print("w:"+str(self.x)+" h:"+str(self.y)+" p:"+self.prot);
@@ -117,8 +117,8 @@ if __name__ == '__main__':
   setLogLevel('info')
   args=sys.argv;
 
-  if len(args) != 4:
-    print("usage python location.py -w:width -h:height -p:protocol ");
+  #if len(args) != 4:
+    #print("usage python location.py -w:width -h:height -p:protocol ");
   
   
   topo=TopologyGenerator();

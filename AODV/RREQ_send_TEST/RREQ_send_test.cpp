@@ -31,6 +31,8 @@ void broadcastRREQ(const RREQ& rreq, const std::string& broadcast_ip, uint16_t p
     if (sock < 0) {
         perror("Socket creation failed");
         return;
+    } else {
+        std::cout<< "Hello socket" << std::endl;
     }
 
     // ブロードキャストオプションの有効化
@@ -39,6 +41,8 @@ void broadcastRREQ(const RREQ& rreq, const std::string& broadcast_ip, uint16_t p
         perror("Failed to enable broadcast");
         close(sock);
         return;
+    } else {
+        std::cout<< "broadcastEnable success"<< std::endl;
     }
 
     // 宛先アドレスの設定
@@ -63,14 +67,15 @@ void broadcastRREQ(const RREQ& rreq, const std::string& broadcast_ip, uint16_t p
 
 int main() {
     // RREQの生成
-    RREQ rreq = generateRREQ(0, 0, 0xC0A80101, 0xC0A80102, 42, 1); // 適切な値を設定
+    RREQ rreq = generateRREQ(0,0,0xC0A80101,0xC0A80102, 42,1); // 適切な値を設定
 
     // ブロードキャスト設定
-    std::string broadcast_ip = "255.255.255.255"; // ブロードキャストアドレス
-    uint16_t port = 654; // RFC 3561のデフォルトポート
-
-    // RREQのブロードキャスト
-    broadcastRREQ(rreq, broadcast_ip, port);
+    std::string broadcast_ip = "10.255.255.255"; // ブロードキャストアドレス
+    uint16_t port = 2000; 
+    for (size_t i = 0; i < 5; i++)
+    {
+        broadcastRREQ(rreq, broadcast_ip, port);   
+    }
 
     return 0;
 }

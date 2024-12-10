@@ -88,7 +88,7 @@ void receiveRREQ(uint16_t port) {
 }
 
 int main() {
-    uint16_t port = 654; // RFC 3561で指定されたポート
+    uint16_t port = 2000; // RFC 3561で指定されたポート
     receiveRREQ(port);
     return 0;
 }
