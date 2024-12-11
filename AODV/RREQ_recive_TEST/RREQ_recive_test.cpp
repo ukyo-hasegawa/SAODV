@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include "../data_struct.h"
 
+/*RREQを受信するソースコード*/
 RREQ deserializeRREQ(const std::vector<uint8_t>& buffer) {
     RREQ rreq;
 

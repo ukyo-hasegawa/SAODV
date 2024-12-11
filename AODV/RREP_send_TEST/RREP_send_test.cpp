@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include "../data_struct.h"
 
+/*RREQを送信するソースコード*/
+
 // RREPメッセージをシリアライズする関数
 std::vector<uint8_t> serializeRREP(const RREP& rrep) {
     std::vector<uint8_t> buffer;

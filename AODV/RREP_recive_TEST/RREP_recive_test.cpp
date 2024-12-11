@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include "../data_struct.h"
 
+/*RREPを受信するソースコード*/
+
 RREP deserializeRREP(const std::vector<uint8_t>& buffer) {
     RREP rrep;
 

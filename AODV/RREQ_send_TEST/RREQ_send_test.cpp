@@ -6,6 +6,8 @@
 #include <vector>
 #include "../data_struct.h"
 
+/*RREQを送信するソースコード*/
+
 std::vector<uint8_t> serializeRREQ(const RREQ& rreq) {
     std::vector<uint8_t> buffer;
 
