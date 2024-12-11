@@ -59,6 +59,8 @@ void receiveRREQ(uint16_t port) {
         if (recvLen < 0) {
             perror("Receive failed");
             break;
+        } else {
+            std::cout << "receive success" << std::endl;
         }
 
         buffer.resize(recvLen);

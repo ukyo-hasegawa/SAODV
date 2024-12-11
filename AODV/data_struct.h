@@ -48,7 +48,7 @@ RREQ generateRREQ(uint8_t flags,uint8_t hop_count, uint32_t origin_ip, uint32_t 
 //RREPの生成
 RREP generateRREP(uint8_t type,uint8_t reserved, uint8_t Prefix_size, uint32_t origin_ip, uint32_t dest_ip, uint32_t dest_seq_num, uint8_t hop_count, uint64_t lifetime) {
     RREP rrep;
-    rrep.type = 2;
+    rrep.type = type;
     rrep.reserved =reserved;
     rrep.Prefix_Size = Prefix_size;
     rrep.origin_ip = origin_ip;

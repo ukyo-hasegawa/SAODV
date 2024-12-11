@@ -49,7 +49,7 @@ class TopologyGenerator:
     self.stas = []
 
     print("*** Creating nodes")
-    interval=70;
+    interval=20;
     #sta1 = net.addStation('sta1', ip6='fe80::1',cls=CPULimitedStation,position='10,10,0', **kwargs)
     #sta1.setCPUFrac(f=0.01)
     for i in range(num):
